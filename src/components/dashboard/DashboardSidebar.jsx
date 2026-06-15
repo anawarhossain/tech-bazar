@@ -15,11 +15,11 @@ import Link from "next/link";
 const DashboardSidebar = () => {
   const navItems = [
     { icon: House, href: "/", label: "Home" },
-    { icon: Magnifier, href: "/search", label: "Search" },
-    { icon: Bell, href: "/notifications", label: "Notifications" },
-    { icon: Envelope, href: "/messages", label: "Messages" },
-    { icon: Person, href: "/profile", label: "Profile" },
-    { icon: Gear, href: "/settings", label: "Settings" },
+    { icon: Magnifier, href: "#", label: "Search" },
+    { icon: Bell, href: "#", label: "Notifications" },
+    { icon: Envelope, href: "#", label: "Messages" },
+    { icon: Person, href: "#", label: "Profile" },
+    { icon: Gear, href: "#", label: "Settings" },
   ];
 
   const navItemsWithLinks = navItems.map((item) => (
@@ -35,36 +35,53 @@ const DashboardSidebar = () => {
   ));
 
   return (
-    <Drawer>
-      <Button variant="secondary">
-        <Bars />
-        Menu
-      </Button>
+    <>
+      <aside className="hidden lg:block">
+        <div>
+          <Link
+            href="/"
+            className="flex flex-col items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors"
+          >
+            <Image src="/logo-xl.png" alt="Logo" width={180} height={50} />
+          </Link>
+        </div>
+        <nav className="flex flex-col gap-1">{navItemsWithLinks}</nav>
+      </aside>
 
-      <Drawer.Backdrop>
-        <Drawer.Content placement="left">
-          <Drawer.Dialog>
-            <Drawer.CloseTrigger />
-            <Drawer.Header>
-              <div>
-                <Link href="/" className="flex flex-col items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors">
-                  <Image
-                    src="/logo-xl.png"
-                    alt="Logo"
-                    width={180}
-                    height={50}
-                  />
-                </Link>
-              </div>
-              <Drawer.Heading>Navigation</Drawer.Heading>
-            </Drawer.Header>
-            <Drawer.Body>
-              <nav className="flex flex-col gap-1">{navItemsWithLinks}</nav>
-            </Drawer.Body>
-          </Drawer.Dialog>
-        </Drawer.Content>
-      </Drawer.Backdrop>
-    </Drawer>
+      <Drawer>
+        <Button variant="secondary" className={"lg:hidden"}>
+          <Bars />
+          Menu
+        </Button>
+
+        <Drawer.Backdrop>
+          <Drawer.Content placement="left">
+            <Drawer.Dialog>
+              <Drawer.CloseTrigger />
+              <Drawer.Header>
+                <div>
+                  <Link
+                    href="/"
+                    className="flex flex-col items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors"
+                  >
+                    <Image
+                      src="/logo-xl.png"
+                      alt="Logo"
+                      width={180}
+                      height={50}
+                    />
+                  </Link>
+                </div>
+                <Drawer.Heading>Navigation</Drawer.Heading>
+              </Drawer.Header>
+              <Drawer.Body>
+                <nav className="flex flex-col gap-1">{navItemsWithLinks}</nav>
+              </Drawer.Body>
+            </Drawer.Dialog>
+          </Drawer.Content>
+        </Drawer.Backdrop>
+      </Drawer>
+    </>
   );
 };
 
