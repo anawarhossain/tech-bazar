@@ -8,6 +8,8 @@ import {
   Person,
 } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
+import { HouseIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const DashboardSidebar = () => {
@@ -17,7 +19,7 @@ const DashboardSidebar = () => {
     { icon: Bell, href: "/notifications", label: "Notifications" },
     { icon: Envelope, href: "/messages", label: "Messages" },
     { icon: Person, href: "/profile", label: "Profile" },
-    { icon: Gear,   href: "/settings", label: "Settings" },
+    { icon: Gear, href: "/settings", label: "Settings" },
   ];
 
   const navItemsWithLinks = navItems.map((item) => (
@@ -28,8 +30,7 @@ const DashboardSidebar = () => {
       type="button"
     >
       <item.icon className="size-5 text-muted" />
-          {item.label}
-          
+      {item.label}
     </Link>
   ));
 
@@ -39,11 +40,22 @@ const DashboardSidebar = () => {
         <Bars />
         Menu
       </Button>
+
       <Drawer.Backdrop>
         <Drawer.Content placement="left">
           <Drawer.Dialog>
             <Drawer.CloseTrigger />
             <Drawer.Header>
+              <div>
+                <Link href="/" className="flex flex-col items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors">
+                  <Image
+                    src="/logo-xl.png"
+                    alt="Logo"
+                    width={180}
+                    height={50}
+                  />
+                </Link>
+              </div>
               <Drawer.Heading>Navigation</Drawer.Heading>
             </Drawer.Header>
             <Drawer.Body>
