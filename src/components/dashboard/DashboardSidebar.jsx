@@ -1,3 +1,4 @@
+import { auth } from "@/lib/auth";
 import {
   Bars,
   Bell,
@@ -9,20 +10,41 @@ import {
 } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import { HouseIcon } from "lucide-react";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
-const DashboardSidebar = () => {
-  const navItems = [
-    { icon: House, href: "/", label: "Home" },
-    { icon: Magnifier, href: "#", label: "Search" },
-    { icon: Bell, href: "#", label: "Notifications" },
+const DashboardSidebar = async () => {
+
+  const session = await auth.api.getSession({
+    headers: await headers()
+  });
+  const user = session?.user;
+  const userRole = user?.role;
+
+  const buyerNavItems = [
+    { icon: House, href: "/dashboard/buyer", label: "Home" },
+    { icon: Magnifier, href: "/dashboard/buyer/products", label: "products" },
+    { icon: Bell, href: "/dashboard/buyer/notifications", label: "Notifications" },
     { icon: Envelope, href: "#", label: "Messages" },
     { icon: Person, href: "#", label: "Profile" },
     { icon: Gear, href: "#", label: "Settings" },
   ];
 
-  const navItemsWithLinks = navItems.map((item) => (
+  const sellerNavItems = [
+    { icon: House, href: "/dashboard/seller", label: "Dashboard" },
+    { icon: Magnifier, href: "/dashboard/seller/products", label: "Products" },
+    { icon: Bell, href: "/dashboard/seller/transactions", label: "Transactions" },
+    { icon: Envelope, href: "#", label: "Messages" },
+    { icon: Person, href: "#", label: "Profile" },
+    { icon: Gear, href: "#", label: "Settings" },
+  ];
+
+  const dashboardNavItems= userRole === "buyer" ? buyerNavItems : sellerNavItems
+
+
+
+  const navItemsWithLinks = dashboardNavItems.map((item) => (
     <Link
       href={item.href}
       key={item.label}
