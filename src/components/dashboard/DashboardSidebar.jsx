@@ -20,14 +20,15 @@ const DashboardSidebar = async () => {
     headers: await headers()
   });
   const user = session?.user;
-  const userRole = user?.role;
+  const userRole = user?.role || "buyer";
+
 
   const buyerNavItems = [
     { icon: House, href: "/dashboard/buyer", label: "Home" },
     { icon: Magnifier, href: "/dashboard/buyer/products", label: "products" },
     { icon: Bell, href: "/dashboard/buyer/notifications", label: "Notifications" },
     { icon: Envelope, href: "#", label: "Messages" },
-    { icon: Person, href: "#", label: "Profile" },
+    { icon: Person, href: "#", label: "Buyer" },
     { icon: Gear, href: "#", label: "Settings" },
   ];
 
@@ -36,11 +37,24 @@ const DashboardSidebar = async () => {
     { icon: Magnifier, href: "/dashboard/seller/products", label: "Products" },
     { icon: Bell, href: "/dashboard/seller/transactions", label: "Transactions" },
     { icon: Envelope, href: "#", label: "Messages" },
-    { icon: Person, href: "#", label: "Profile" },
+    { icon: Person, href: "#", label: "Seller" },
     { icon: Gear, href: "#", label: "Settings" },
   ];
 
-  const dashboardNavItems= userRole === "buyer" ? buyerNavItems : sellerNavItems
+  const adminNavItems = [
+    { icon: House, href: "/dashboard/admin", label: "Dashboard" },
+    { icon: Magnifier, href: "/dashboard/admin/users", label: "Users" },
+    { icon: Bell, href: "/dashboard/admin/transactions", label: "Transactions" },
+    { icon: Envelope, href: "#", label: "Messages" },
+    { icon: Person, href: "#", label: "Admin" },
+    { icon: Gear, href: "#", label: "Settings" },
+  ];
+
+  const dashboardNavItems= {
+    buyer: buyerNavItems,
+    seller: sellerNavItems,
+    admin: adminNavItems,
+  }[userRole];
 
 
 
