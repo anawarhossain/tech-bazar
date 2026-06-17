@@ -9,7 +9,6 @@ import {
   Person,
 } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
-import { HouseIcon } from "lucide-react";
 import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";

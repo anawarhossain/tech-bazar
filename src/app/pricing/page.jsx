@@ -1,6 +1,11 @@
+import { getUserSession } from "@/lib/core/session";
 import { Button } from "@heroui/react";
 
-export default function SellerPricingPage() {
+export default async function SellerPricingPage() {
+
+  const user = await getUserSession();
+  console.log("user info",user);
+
   const plans = [
     {
       name: "Starter Seller",
@@ -120,7 +125,10 @@ export default function SellerPricingPage() {
                   Contact Sales
                 </Button>
               ) : (
-                <form action={"/api/subscription"} method="POST">
+                <form
+                  action={`${user?.email ? "/api/subscription" : "/signin"}`}
+                  method="POST"
+                >
                   <Button type="submit" className={`mt-8 w-full  font-medium`}>
                     Become Seller
                   </Button>

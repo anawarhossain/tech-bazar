@@ -33,7 +33,7 @@ export async function POST() {
           userEmail: user?.email
       },
       mode: "subscription",
-      success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${origin}/pricing/success?session_id={CHECKOUT_SESSION_ID}`,
     });
     return NextResponse.redirect(session.url, 303);
   } catch (err) {
